@@ -32,5 +32,6 @@ export class HomeComponent {
     },
     price: 1200,
     available: true
+
   };
 }
