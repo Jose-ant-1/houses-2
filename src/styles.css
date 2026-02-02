@@ -1,3 +1,5 @@
+@import 'leaflet/dist/leaflet.css';
+
 :root {
   --primary-color: #605DC8;
   --secondary-color: #8B89E6;
@@ -12,4 +14,12 @@
 
 body {
   font-family: 'Inter', sans-serif;
+}
+
+/* Además, añade esto para asegurar que el contenedor no colapse */
+#map {
+  display: block;
+  width: 100% !important;
+  height: 400px !important;
+  z-index: 1; /* Para que no se superponga a otros elementos */
 }

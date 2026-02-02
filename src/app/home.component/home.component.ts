@@ -1,37 +1,45 @@
-import { Component } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HousingLocationComponent } from '../housing-location.component/housing-location.component';
-import { HousingLocation } from '../housingLocation'; // [cite: 10]
+import { HousingLocation } from '../housingLocation';
+import { HousingService } from '../housing.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    CommonModule,
-    HousingLocationComponent
-  ],
+  imports: [CommonModule, HousingLocationComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  readonly baseUrl = 'https://angular.io/assets/images/tutorials/common';
+  housingLocationList: HousingLocation[] = [];
+  filteredLocationList: HousingLocation[] = [];
+  housingService: HousingService = inject(HousingService);
+  private cdr = inject(ChangeDetectorRef); // 2. Inyecta el detector de cambios
 
-  // Objeto de prueba con los datos originales y los del PDF [cite: 7, 8, 9]
-  housingLocation: HousingLocation = {
-    id: 9999,
-    name: 'Test Home',
-    city: 'Test City',
-    state: 'ST',
-    photo: `${this.baseUrl}/bernard-hermant-CLKpM6OgrR8-unsplash.jpg`,
-    availableUnits: 99,
-    wifi: true,
-    laundry: false,
-    coordinate: {
-      latitude: 40.4167,
-      longitude: -3.7037
-    },
-    price: 1200,
-    available: true
+  constructor() {
+    this.housingService.getAllHousingLocations().then((list: HousingLocation[]) => {
+      this.housingLocationList = list;
+      this.filteredLocationList = list;
 
-  };
+      // 3. Forzamos a Angular a que vuelva a mirar la pantalla
+      this.cdr.detectChanges();
+
+      console.log('Datos fijados en pantalla:', this.housingLocationList.length);
+    });
+  }
+
+  // 3. Esta es la función de filtrado
+  filterResults(text: string) {
+    // Si no hay texto, mostramos la lista completa original
+    if (!text) {
+      this.filteredLocationList = this.housingLocationList;
+      return;
+    }
+
+    // Filtramos ignorando mayúsculas/minúsculas
+    this.filteredLocationList = this.housingLocationList.filter(
+      housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
+    );
+  }
 }

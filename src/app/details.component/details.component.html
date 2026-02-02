@@ -1,0 +1,66 @@
+<article>
+  @if (housingLocation) {
+    <img class="listing-photo" [src]="housingLocation.photo" alt="Exterior photo of {{housingLocation.name}}">
+    <section class="listing-description">
+      <h2 class="listing-heading">{{housingLocation.name}}</h2>
+      <p class="listing-location">{{housingLocation.city}}, {{housingLocation.state}}</p>
+    </section>
+
+    <section class="listing-features">
+      <h2 class="section-heading">About this housing location</h2>
+      <ul>
+        <li>Units available: {{housingLocation.availableUnits}}</li>
+        <li>Price: ${{housingLocation.price}}</li> <li>Does this location have wifi: {{housingLocation.wifi ? 'Yes' : 'No'}}</li>
+        <li>Does this location have laundry: {{housingLocation.laundry ? 'Yes' : 'No'}}</li>
+      </ul>
+    </section>
+
+    <section class="listing-weather">
+      <h2 class="section-heading">Current Weather at this location</h2>
+
+      @if (weatherData) {
+        <div class="weather-info">
+          <img [src]="weatherData.current.condition.icon" alt="Weather icon">
+          <p><strong>{{ weatherData.current.temp_c }}°C</strong> - {{ weatherData.current.condition.text }}</p>
+          <p>Humidity: {{ weatherData.current.humidity }}%</p>
+        </div>
+      } @else {
+        <p>Loading weather data...</p>
+      }
+    </section>
+
+    <section class="listing-apply">
+      <h2 class="section-heading">Apply now to live here</h2>
+      <form [formGroup]="applyForm" (submit)="submitApplication()">
+        <label for="first-name">First Name</label>
+        <input id="first-name" type="text" formControlName="firstName">
+
+        @if (applyForm.get('firstName')?.invalid && applyForm.get('firstName')?.touched) {
+          <div class="error">First Name is required.</div>
+        }
+
+        <label for="last-name">Last Name</label>
+        <input id="last-name" type="text" formControlName="lastName">
+        @if (applyForm.get('lastName')?.invalid && applyForm.get('lastName')?.touched) {
+          <div class="error">Last Name is required.</div>
+        }
+
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email">
+        @if (applyForm.get('email')?.invalid && applyForm.get('email')?.touched) {
+          <div class="error">Please enter a valid email.</div>
+        }
+
+        <button type="submit" class="primary" [disabled]="applyForm.invalid">Apply now</button>
+      </form>
+    </section>
+
+    <section class="listing-map" style="margin-top: 30px; clear: both;">
+      <h2 class="section-heading">Location Map</h2>
+      <div id="map"></div>
+    </section>
+
+  } @else {
+    <p>Housing location not found.</p>
+  }
+</article>
