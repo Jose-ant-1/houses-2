@@ -1,0 +1,65 @@
+<article class="container">
+  <section class="listing-apply">
+    <h2 class="listing-heading">New Home</h2>
+    <p class="listing-location">Enter the property details</p>
+
+    @if (successMsg) {
+      <div class="success-msg">{{ successMsg }}</div>
+    }
+    @if (errorMsg) {
+      <div class="error">{{ errorMsg }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label for="name">Name *</label>
+      <input id="name" type="text" formControlName="name" placeholder="Ej: Casa del Sol">
+      @if (form.controls.name.touched && form.controls.name.invalid) {
+        <div class="error">name is required (mín. 3 characters).</div>
+      }
+
+      <div class="row-flex">
+        <div class="col">
+          <label for="city">Town *</label>
+          <input id="city" type="text" formControlName="city">
+          @if (form.controls.city.touched && form.controls.city.invalid) {
+            <div class="error">Town is required (mín. 3 characters).</div>
+          }
+        </div>
+        <div class="col">
+          <label for="state">State *</label>
+          <input id="state" type="text" formControlName="state">
+          @if (form.controls.state.touched && form.controls.state.invalid) {
+            <div class="error">State is required (mín. 2 characters)</div>
+          }
+        </div>
+      </div>
+
+      <div class="row-flex">
+        <div class="col">
+          <label for="units">units available *</label>
+          <input id="units" type="number" formControlName="availableUnits">
+        </div>
+        <div class="col">
+          <label for="price">price ($) *</label>
+          <input id="price" type="number" formControlName="price">
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <label class="check-label">
+          <input type="checkbox" formControlName="wifi"> Wifi
+        </label>
+        <label class="check-label">
+          <input type="checkbox" formControlName="laundry"> Laundry
+        </label>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="primary" [disabled]="form.invalid || submitting">
+          @if (submitting) { Loading... } @else { save home }
+        </button>
+        <button type="button" class="secondary-btn" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </section>
+</article>

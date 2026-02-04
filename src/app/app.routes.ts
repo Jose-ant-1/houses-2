@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home.component/home.component';
 import { DetailsComponent } from './details.component/details.component';
+import {HousingLocationFormComponent} from './housing-location-form.component/housing-location-form.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home page' },
   { path: 'details/:id', component: DetailsComponent, title: 'Home details' },
+  { path: 'add-house', component: HousingLocationFormComponent, title: 'Register New House' },
 ];

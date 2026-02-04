@@ -51,4 +51,19 @@ export class HousingService {
     const response = await fetch(url);
     return await response.json();
   }
+
+  // En housing.service.ts
+  async addHousingLocation(newHouse: any): Promise<any> {
+    const response = await fetch(this.url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newHouse)
+    });
+
+    if (!response.ok) throw new Error('Error al guardar la vivienda');
+    return await response.json();
+  }
+
 }

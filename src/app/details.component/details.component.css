@@ -39,6 +39,11 @@ label,
 input {
   display: block;
 }
+.error {
+  color: red;
+  margin: 5px;
+}
+
 label {
   color: var(--secondary-color);
   font-weight: bold;

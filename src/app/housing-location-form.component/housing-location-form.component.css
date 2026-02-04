@@ -1,0 +1,111 @@
+/* Heredamos las variables del tutorial */
+.container {
+  margin: 20px;
+}
+
+.listing-heading {
+  font-size: 36pt;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #605dc8;
+}
+
+.listing-location {
+  font-size: 18pt;
+  margin-bottom: 30px;
+  color: #444;
+}
+
+label {
+  display: block;
+  color: #605dc8; /* Tu --secondary-color */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12pt;
+  margin-top: 20px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"] {
+  font-size: 16pt;
+  margin-bottom: 15px;
+  padding: 10px;
+  width: 100%;
+  max-width: 500px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: solid 1px #605dc8; /* Línea lila */
+  outline: none;
+}
+
+.error {
+  color: #dc3545;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.success-msg {
+  color: #28a745;
+  font-weight: bold;
+  font-size: 14pt;
+  margin-bottom: 20px;
+}
+
+/* Layout para que Ciudad/Estado y Unidades/Precio salgan en paralelo */
+.row-flex {
+  display: flex;
+  gap: 30px;
+  max-width: 500px;
+}
+
+.col {
+  flex: 1;
+}
+
+.checkbox-group {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.check-label {
+  text-transform: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14pt;
+}
+
+/* Botones con estilo del tutorial */
+.button-group {
+  margin-top: 40px;
+  display: flex;
+  gap: 15px;
+}
+
+button.primary {
+  padding: 10px 30px;
+  border: solid 1px #605dc8;
+  background: #605dc8;
+  color: white;
+  border-radius: 8px;
+  font-size: 14pt;
+  cursor: pointer;
+}
+
+button.primary:disabled {
+  background: #ccc;
+  border-color: #ccc;
+}
+
+.secondary-btn {
+  padding: 10px 30px;
+  border: solid 1px #605dc8;
+  background: white;
+  color: #605dc8;
+  border-radius: 8px;
+  font-size: 14pt;
+  cursor: pointer;
+}
