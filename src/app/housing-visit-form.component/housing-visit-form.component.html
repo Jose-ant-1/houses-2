@@ -1,0 +1,37 @@
+<form [formGroup]="applyForm" (submit)="submitApplication()">
+
+  <label for="fullName">Full Name</label>
+  <input id="fullName" type="text" formControlName="fullName">
+  @if (applyForm.get('fullName')?.invalid && applyForm.get('fullName')?.touched) {
+    <div class="error">Full Name is required.</div>
+  }
+
+  <label for="phone">Phone number</label>
+  <input id="phone" type="number" formControlName="phone">
+  @if (applyForm.get('phone')?.invalid && applyForm.get('phone')?.touched) {
+    <div class="error">Phone number is required.</div>
+  }
+
+  <label for="email">Email</label>
+  <input id="email" type="email" formControlName="email">
+  @if (applyForm.get('email')?.invalid && applyForm.get('email')?.touched) {
+    <div class="error">Please enter a valid email.</div>
+  }
+
+  <label for="date">Visit date</label>
+  <input id="date" type="date" formControlName="date">
+  @if (applyForm.get('date')?.invalid && applyForm.get('date')?.touched) {
+    <div class="error">Please enter a valid date.</div>
+  }
+  <label for="message">Message/comment</label>
+  <textarea id="message" formControlName="message"></textarea>
+
+
+  <label for="privacy">Accept privacy terms</label>
+  <input id="privacy" type="checkbox" formControlName="privacy">
+  @if (applyForm.get('privacy')?.invalid && applyForm.get('privacy')?.touched) {
+    <div class="error">You must accept privacy terms.</div>
+  }
+
+  <button type="submit" class="primary" [disabled]="applyForm">Apply now</button>
+</form>

@@ -159,6 +159,22 @@
         "latitude": 45.5152,
         "longitude": -122.6784
       }
+    },
+    {
+      "id": "b8c0",
+      "name": "hola si",
+      "city": "mala",
+      "state": "am",
+      "availableUnits": 1,
+      "price": 10000,
+      "wifi": false,
+      "laundry": true,
+      "available": true,
+      "photo": "",
+      "coordinate": {
+        "latitude": 36.7226,
+        "longitude": -4.4240
+      }
     }
   ]
 }

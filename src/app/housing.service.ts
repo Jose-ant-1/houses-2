@@ -13,7 +13,6 @@ export class HousingService {
   async getAllHousingLocations(): Promise<HousingLocation[]> {
     try {
       const response = await fetch(this.url);
-      if (!response.ok) throw new Error('API inaccesible');
       return await response.json();
     } catch (error) {
       console.warn('Fallo en API, activando datos locales de emergencia');
@@ -27,7 +26,6 @@ export class HousingService {
   async getHousingLocationById(id: number): Promise<HousingLocation | undefined> {
     try {
       const response = await fetch(`${this.url}/${id}`);
-      if (!response.ok) throw new Error('Casa no encontrada en API');
       const json = await response.json();
       return Object.keys(json).length > 0 ? json : undefined;
     } catch (error) {
@@ -35,13 +33,13 @@ export class HousingService {
       const fallback = await fetch(this.localUrl);
       const data = await fallback.json();
       // BUSQUEDA MANUAL: Buscamos la casa específica en el fallback local
-      return data.locations.find((location: HousingLocation) => location.id === id);
+      return data.locations.find((location: HousingLocation) => String(location.id) === String(id));
     }
   }
 
   // Capa de Casos de Uso: Lógica de negocio
-  submitApplication(firstName: string, lastName: string, email: string) {
-    console.log(`Application received: firstName: ${firstName}, lastName: ${lastName}, email: ${email}.`);
+  submitApplication(fullName: string, phone: number, email: string, date: string, message: string, privacy: boolean) {
+    console.log(`Application received: fullName: ${fullName}, phone: ${phone}, email: ${email}, date: ${date}, message: ${message}, privacy: ${privacy}.`);
   }
 
   // Integración externa: Weather API

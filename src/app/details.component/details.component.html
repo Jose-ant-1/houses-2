@@ -31,28 +31,7 @@
 
     <section class="listing-apply">
       <h2 class="section-heading">Apply now to live here</h2>
-      <form [formGroup]="applyForm" (submit)="submitApplication()">
-        <label for="first-name">First Name</label>
-        <input id="first-name" type="text" formControlName="firstName">
-
-        @if (applyForm.get('firstName')?.invalid && applyForm.get('firstName')?.touched) {
-          <div class="error">First Name is required.</div>
-        }
-
-        <label for="last-name">Last Name</label>
-        <input id="last-name" type="text" formControlName="lastName">
-        @if (applyForm.get('lastName')?.invalid && applyForm.get('lastName')?.touched) {
-          <div class="error">Last Name is required.</div>
-        }
-
-        <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email">
-        @if (applyForm.get('email')?.invalid && applyForm.get('email')?.touched) {
-          <div class="error">Please enter a valid email.</div>
-        }
-
-        <button type="submit" class="primary" [disabled]="applyForm.invalid">Apply now</button>
-      </form>
+      <app-housing-visit-form></app-housing-visit-form>
     </section>
 
     <section class="listing-map" style="margin-top: 30px; clear: both;">

@@ -5,12 +5,13 @@ import { HousingService } from '../housing.service';
 import { HousingLocation } from '../housingLocation';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import * as L from 'leaflet';
+import {HousingVisitFormComponent} from '../housing-visit-form.component/housing-visit-form.component';
 
 @Component({
   selector: 'app-details',
   standalone: true,
   // 2. Añadir ReactiveFormsModule a los imports
-  imports: [ CommonModule, ReactiveFormsModule ],
+  imports: [CommonModule, ReactiveFormsModule, HousingVisitFormComponent],
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
@@ -24,18 +25,11 @@ export class DetailsComponent {
 
 
   // 3. Definir el grupo del formulario
-  applyForm = new FormGroup({
-    // 'Validators.required' hace que el campo sea obligatorio
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
-    // 'Validators.email' verifica el formato del correo
-    email: new FormControl('', [Validators.required, Validators.email])
-  });
 
   weatherData: any; // Variable para el clima
 
   constructor() {
-    const housingLocationId = Number(this.route.snapshot.params['id']);
+    const housingLocationId = this.route.snapshot.params['id'];
 
     this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
       this.housingLocation = housingLocation;
@@ -58,12 +52,6 @@ export class DetailsComponent {
       this.cdr.detectChanges();
     });
 
-    // Lógica de LocalStorage
-    const savedData = localStorage.getItem('savedApplication');
-    if (savedData) {
-      const parsedData = JSON.parse(savedData);
-      this.applyForm.patchValue(parsedData);
-    }
   }
 
   private initMap(): void {
@@ -97,20 +85,4 @@ export class DetailsComponent {
     }, 200);
   }
 
-
-  submitApplication() {
-    if (this.applyForm.valid) {
-      // 1. Enviamos los datos al servicio como ya hacíamos
-      this.housingService.submitApplication(
-        this.applyForm.value.firstName ?? '',
-        this.applyForm.value.lastName ?? '',
-        this.applyForm.value.email ?? ''
-      );
-
-      // 2. Guardamos en LocalStorage para cumplir el requisito
-      localStorage.setItem('savedApplication', JSON.stringify(this.applyForm.value));
-
-      alert('Application saved in LocalStorage!');
-    }
-  }
 }

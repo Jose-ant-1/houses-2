@@ -30,16 +30,23 @@ export class HomeComponent {
   }
 
   // 3. Esta es la función de filtrado
-  filterResults(text: string) {
+  filterResults(text: string, orden: String) {
     // Si no hay texto, mostramos la lista completa original
     if (!text) {
       this.filteredLocationList = this.housingLocationList;
       return;
     }
 
-    // Filtramos ignorando mayúsculas/minúsculas
-    this.filteredLocationList = this.housingLocationList.filter(
-      housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
-    );
+    if(orden === "asc") {
+      this.filteredLocationList = this.housingLocationList.filter(
+        housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
+      ).sort((a, b) => a.price + b.price);
+
+    } else if (orden === "des") {
+      this.filteredLocationList = this.housingLocationList.filter(
+        housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
+      ).sort((a, b) => a.price - b.price);
+    }
+
   }
 }
